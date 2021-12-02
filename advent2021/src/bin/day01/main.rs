@@ -1,21 +1,20 @@
-use anyhow::Result;
-
 fn problem1(data: &[usize]) -> usize {
     data.windows(2).filter(|data| data[1] > data[0]).count()
 }
+
 fn problem2(data: &[usize]) -> usize {
-    let summed: Vec<usize> = data.windows(3).map(|data| data.iter().sum()).collect();
-    summed.windows(2).filter(|data| data[1] > data[0]).count()
+    let summed: Vec<usize> = data.windows(3).map(|chunk| chunk.iter().sum()).collect();
+    summed
+        .windows(2)
+        .filter(|chunk| chunk[1] > chunk[0])
+        .count()
 }
-fn main() -> Result<()> {
-    let data1 = include_str!("input.txt");
-    let measures = data1
-        .lines()
-        .map(str::parse)
-        .collect::<Result<Vec<usize>, _>>()?;
+
+fn main() {
+    let data = include_str!("input.txt");
+    let measures: Vec<_> = data.lines().map(|line| line.parse().unwrap()).collect();
     println!("Problem1: {}", problem1(&measures));
     println!("Problem2: {}", problem2(&measures));
-    Ok(())
 }
 
 #[test]
