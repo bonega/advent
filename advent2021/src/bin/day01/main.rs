@@ -1,5 +1,5 @@
 fn problem1(data: &[usize]) -> usize {
-    data.windows(2).filter(|data| data[1] > data[0]).count()
+    data.windows(2).filter(|chunk| chunk[1] > chunk[0]).count()
 }
 
 fn problem2(data: &[usize]) -> usize {
