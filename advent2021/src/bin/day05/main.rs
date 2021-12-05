@@ -21,17 +21,9 @@ impl Segment {
 
     fn to_points(&self) -> Vec<Pos> {
         let mut res = vec![];
-        let x_step: isize = match self.start.0.cmp(&self.end.0) {
-            std::cmp::Ordering::Less => 1,
-            std::cmp::Ordering::Equal => 0,
-            std::cmp::Ordering::Greater => -1,
-        };
+        let x_step = self.start.0.cmp(&self.end.0) as isize * -1;
 
-        let y_step: isize = match self.start.1.cmp(&self.end.1) {
-            std::cmp::Ordering::Less => 1,
-            std::cmp::Ordering::Equal => 0,
-            std::cmp::Ordering::Greater => -1,
-        };
+        let y_step = self.start.1.cmp(&self.end.1) as isize * -1;
 
         let mut x = self.start.0;
         let mut y = self.start.1;
