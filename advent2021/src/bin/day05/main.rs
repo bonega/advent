@@ -12,10 +12,10 @@ struct Segment {
 
 impl Segment {
     fn new(s: &str) -> Self {
-        let re = Regex::new(r"(\d+),(\d+) -> (\d+),(\d+)").unwrap();
-        let m = re.captures(s.lines().next().unwrap()).unwrap();
-        let start = (m[1].parse().unwrap(), m[2].parse().unwrap());
-        let end = (m[3].parse().unwrap(), m[4].parse().unwrap());
+        let re = Regex::new(r"\d+").unwrap();
+        let mut matches = re.find_iter(s).map(|m| m.as_str().parse().unwrap());
+        let start = (matches.next().unwrap(), matches.next().unwrap());
+        let end = (matches.next().unwrap(), matches.next().unwrap());
         Self { start, end }
     }
 
@@ -40,8 +40,7 @@ impl Segment {
 }
 
 fn parse(s: &str) -> Vec<Segment> {
-    let segments = s.lines().map(Segment::new).collect();
-    segments
+    s.lines().map(Segment::new).collect()
 }
 
 fn count_intersections(points: &[Pos]) -> usize {
