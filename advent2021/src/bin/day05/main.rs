@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 use regex::Regex;
 
-type Pos = (usize, usize);
+type Pos = (isize, isize);
 
 #[derive(Debug)]
 struct Segment {
@@ -32,8 +32,8 @@ impl Segment {
             if x == self.end.0 && y == self.end.1 {
                 break;
             }
-            x = (x as isize + x_step) as usize;
-            y = (y as isize + y_step) as usize;
+            x += x_step;
+            y += y_step;
         }
         res
     }
