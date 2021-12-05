@@ -86,7 +86,7 @@ fn part2(numbers: &[u8], boards: &[Board]) -> usize {
 
     let mut last_score = 0;
     while let Some(n) = numbers.next() {
-        for (i, combos) in board_combos.iter_mut().enumerate() {
+        for combos in board_combos.iter_mut() {
             for combo in combos.iter_mut() {
                 combo.remove(n);
             }
@@ -94,7 +94,6 @@ fn part2(numbers: &[u8], boards: &[Board]) -> usize {
                 let unique: HashSet<u8> = combos.iter().cloned().flatten().collect();
                 let sum: usize = unique.into_iter().map(|x| x as usize).sum();
                 last_score = sum * (*n as usize);
-                dbg!(n);
             }
         }
         board_combos.retain(|combos| !combos.iter().any(|combo| combo.is_empty()));
