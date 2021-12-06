@@ -58,29 +58,30 @@ fn problem2(instructions: &[Instruction]) -> usize {
     hor * depth
 }
 
-#[test]
-fn test_problem1() {
-    use Instruction::*;
-    let instructions = vec![Forward(5), Down(5), Forward(8), Up(3), Down(8), Forward(2)];
-    assert_eq!(150, problem1(&instructions));
-}
+#[cfg(test)]
+mod test {
+    use crate::Instruction::{self, *};
+    const INSTRUCTIONS: &[Instruction] =
+        &[Forward(5), Down(5), Forward(8), Up(3), Down(8), Forward(2)];
 
-#[test]
-fn test_problem2() {
-    use Instruction::*;
-    let instructions = vec![Forward(5), Down(5), Forward(8), Up(3), Down(8), Forward(2)];
-    assert_eq!(900, problem2(&instructions));
-}
+    #[test]
+    fn problem1() {
+        assert_eq!(150, crate::problem1(INSTRUCTIONS));
+    }
 
-#[test]
-fn test_parse() {
-    use Instruction::*;
-    let s = "forward 5
+    #[test]
+    fn problem2() {
+        assert_eq!(900, crate::problem2(INSTRUCTIONS));
+    }
+
+    #[test]
+    fn parse() {
+        let s = "forward 5
 down 5
 forward 8
 up 3
 down 8
 forward 2";
-    let result = vec![Forward(5), Down(5), Forward(8), Up(3), Down(8), Forward(2)];
-    assert_eq!(result, parse_input(s));
+        assert_eq!(INSTRUCTIONS, crate::parse_input(s));
+    }
 }

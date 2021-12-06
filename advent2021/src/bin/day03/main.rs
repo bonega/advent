@@ -71,26 +71,10 @@ fn part2(s: &str) -> usize {
     oxy * co2
 }
 
-#[test]
-fn test_part1() {
-    let s = "00100
-11110
-10110
-10111
-10101
-01111
-00111
-11100
-10000
-11001
-00010
-01010";
-    assert_eq!(198, part1(s));
-}
+#[cfg(test)]
+mod test {
 
-#[test]
-fn test_part2() {
-    let s = "00100
+    const TEST_DATA: &str = "00100
 11110
 10110
 10111
@@ -102,5 +86,14 @@ fn test_part2() {
 11001
 00010
 01010";
-    assert_eq!(230, part2(s));
+
+    #[test]
+    fn test_part1() {
+        assert_eq!(198, crate::part1(TEST_DATA));
+    }
+
+    #[test]
+    fn test_part2() {
+        assert_eq!(230, crate::part2(TEST_DATA));
+    }
 }
