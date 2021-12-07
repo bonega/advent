@@ -1,17 +1,18 @@
 fn main() {
     let s = include_str!("input.txt");
-    let mut population = parse(s);
-    for _ in 0..80 {
-        tick(&mut population);
-    }
-    println!("Part1: {}", population.iter().sum::<usize>());
-    for _ in 0..176 {
-        tick(&mut population);
-    }
-    println!("Part2: {}", population.iter().sum::<usize>());
+    let population = parse(s);
+    println!("Part1: {}", solve(population.clone(), 80));
+    println!("Part2: {}", solve(population, 256));
 }
 
 type Population = [usize; 9];
+
+fn solve(mut population: Population, generations: usize) -> usize {
+    for _ in 0..generations {
+        tick(&mut population)
+    }
+    population.iter().sum()
+}
 
 fn parse(s: &str) -> Population {
     let mut res = Population::default();
