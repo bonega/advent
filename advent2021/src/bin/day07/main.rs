@@ -29,31 +29,13 @@ fn distance_2(i: isize, crabs: &[isize]) -> isize {
 fn part1(crabs: &[isize]) -> isize {
     let min = *crabs.iter().min().unwrap();
     let max = *crabs.iter().max().unwrap();
-    let mut smallest_distance = isize::MAX;
-    let mut found_position = None;
-    for i in min..max {
-        let dist = distance(i, crabs);
-        if dist < smallest_distance {
-            smallest_distance = dist;
-            let _ = found_position.insert(i);
-        }
-    }
-    distance(found_position.unwrap(), crabs)
+    (min..max).map(|i| distance(i, crabs)).min().unwrap()
 }
 
 fn part2(crabs: &[isize]) -> isize {
     let min = *crabs.iter().min().unwrap();
     let max = *crabs.iter().max().unwrap();
-    let mut smallest_distance = isize::MAX;
-    let mut found_position = None;
-    for i in min..max {
-        let dist = distance_2(i, crabs);
-        if dist < smallest_distance {
-            smallest_distance = dist;
-            let _ = found_position.insert(i);
-        }
-    }
-    distance_2(found_position.unwrap(), crabs)
+    (min..max).map(|i| distance_2(i, crabs)).min().unwrap()
 }
 
 #[cfg(test)]
