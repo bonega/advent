@@ -1,6 +1,6 @@
 fn main() {
     let s = include_str!("input.txt");
-    let mut population = parse(s.split("\n").next().unwrap());
+    let mut population = parse(s);
     for _ in 0..80 {
         tick(&mut population);
     }
@@ -15,7 +15,7 @@ type Population = [usize; 9];
 
 fn parse(s: &str) -> Population {
     let mut res = Population::default();
-    for tok in s.split(',') {
+    for tok in s.trim().split(',') {
         let i: usize = tok.parse().unwrap();
         res[i] += 1;
     }
