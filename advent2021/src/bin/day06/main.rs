@@ -24,11 +24,8 @@ fn parse(s: &str) -> Population {
 }
 
 fn tick(population: &mut Population) {
-    let breeders = population[0];
-
-    population.copy_within(1..9, 0);
-    population[6] += breeders;
-    population[8] = breeders;
+    population.rotate_left(1);
+    population[6] += population[8];
 }
 
 #[cfg(test)]
