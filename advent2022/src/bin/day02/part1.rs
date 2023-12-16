@@ -3,9 +3,9 @@ pub(crate) fn solve(bytes: &[u8]) -> usize {
 }
 
 fn compute_score(bytes: &[u8]) -> usize {
-    let other = bytes[0] - (b'A' - 1);
-    let you = bytes[2] - (b'X' - 1);
-    (you + play(you, other)) as usize
+    let other = bytes[0] - b'A';
+    let you = bytes[2] - b'X';
+    (you + 1 + play(you, other)) as usize
 }
 
 fn play(you: u8, other: u8) -> u8 {
@@ -21,9 +21,16 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_parse_file() {
-        let input = include_bytes!("test.txt");
+    fn test_example() {
+        let input = b"A Y\nB X\nC Z\n";
         let res = solve(input);
         assert_eq!(15, res);
+    }
+
+    #[test]
+    fn test_solution() {
+        let input = include_bytes!("input.txt");
+        let res = solve(input);
+        assert_eq!(13924, res);
     }
 }

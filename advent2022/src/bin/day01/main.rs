@@ -1,33 +1,33 @@
-use nom::{
-    self,
-    character::complete::{digit1, newline},
-    combinator::map_res,
-    multi::many0,
-    sequence::terminated,
-    IResult,
-};
-
 fn main() {
     let input = include_str!("input.txt");
-    let res = solve(input);
-    println!("Day01 solution: {res}");
+    let res1 = solve1(input);
+    println!("part1 solution: {res1}");
+    let res2 = solve2(input);
+    println!("part2 solution: {res2}");
 }
 
-fn solve(s: &str) -> u64 {
-    dbg!(parse_elves(s).iter().max().unwrap().clone())
+fn solve1(s: &str) -> u64 {
+    *parse(s).iter().max().unwrap()
 }
 
-fn parse_number(input: &str) -> IResult<&str, u64> {
-    map_res(digit1, str::parse)(input)
+fn solve2(s: &str) -> u64 {
+    let mut nums = parse(s);
+    nums.sort();
+    nums.iter().rev().take(3).sum()
 }
 
-fn parse_calories(s: &str) -> IResult<&str, u64> {
-    let calories = many0(terminated(parse_number, newline));
-    nom::combinator::map(calories, |x: Vec<u64>| x.iter().sum())(s)
-}
-
-fn parse_elves(s: &str) -> Vec<u64> {
-    many0(terminated(parse_calories, newline))(s).unwrap().1
+fn parse(s: &str) -> Vec<u64> {
+    let mut res = vec![];
+    let mut sum = 0;
+    for line in s.lines() {
+        if line.is_empty() {
+            res.push(sum);
+            sum = 0;
+        } else {
+            sum += line.parse::<u64>().unwrap();
+        }
+    }
+    res
 }
 
 #[cfg(test)]
@@ -37,7 +37,7 @@ mod tests {
     #[test]
     fn test_parse_file() {
         let input = include_str!("test.txt");
-        let res = solve(input);
+        let res = solve1(input);
         assert_eq!(24000, res);
     }
 }
