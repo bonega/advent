@@ -1,8 +1,7 @@
 use std::collections::HashSet;
 
-fn numbers_to_set(s: &str) -> HashSet<usize> {
-    s.trim()
-        .split_ascii_whitespace()
+fn numbers_to_hashset(s: &str) -> HashSet<usize> {
+    s.split_ascii_whitespace()
         .map(|s| s.parse::<usize>().unwrap())
         .collect()
 }
@@ -12,8 +11,8 @@ pub fn solve(s: &str) -> usize {
     for line in s.lines() {
         let (_, rest) = line.split_once(':').unwrap();
         let (winning_numbers, given_numbers) = rest.split_once('|').unwrap();
-        let winning_numbers = numbers_to_set(winning_numbers);
-        let given_numbers = numbers_to_set(given_numbers);
+        let winning_numbers = numbers_to_hashset(winning_numbers);
+        let given_numbers = numbers_to_hashset(given_numbers);
         let nr_winners = winning_numbers.intersection(&given_numbers).count();
         if nr_winners != 0 {
             result += 2usize.pow(nr_winners as u32 - 1);

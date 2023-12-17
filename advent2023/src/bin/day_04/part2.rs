@@ -1,8 +1,7 @@
 use std::collections::{HashSet, VecDeque};
 
 fn numbers_to_hashset(s: &str) -> HashSet<usize> {
-    s.trim()
-        .split_ascii_whitespace()
+    s.split_ascii_whitespace()
         .map(|s| s.parse::<usize>().unwrap())
         .collect()
 }
@@ -12,8 +11,7 @@ fn line_to_nr_winners(s: &str) -> usize {
     let (winning_numbers, given_numbers) = rest.split_once('|').unwrap();
     let winning_numbers = numbers_to_hashset(winning_numbers);
     let given_numbers = numbers_to_hashset(given_numbers);
-    let nr_winners = winning_numbers.intersection(&given_numbers).count();
-    nr_winners
+    winning_numbers.intersection(&given_numbers).count()
 }
 
 pub fn solve(s: &str) -> usize {
